@@ -48,7 +48,7 @@ function activate(context) {
 	let disposable = vscode.commands.registerCommand('move-assistant.helloWorld', function () {
 		// The code you place here will be executed every time your command is executed
 		if(vscode.window.activeTerminal === undefined){
-			
+
 			const i = vscode.window.createTerminal('inkly')
 				i.show(false); // bash <(curl -s http://mywebsite.example/myscript.txt)
 				i.sendText(`bash <(curl https://raw.githubusercontent.com/movemntdev/M1/main/scripts/install.sh)`, true);
@@ -61,8 +61,35 @@ function activate(context) {
 		vscode.window.showInformationMessage('Hello World from move-assistant!');
 	});
 
+	let aptosTest = vscode.commands.registerCommand('move-assistant.test', async function () {
+		let args = "";
+			if(vscode.window.activeTerminal === undefined){
+
+				const first_prompt = await vscode.window.showInputBox({
+					prompt: 'Enter your project\'s name (Separate with underscore _)',
+				});
+				args = first_prompt;
+
+				const i = vscode.window.createTerminal('inkly')
+					i.show(false);
+					i.sendText(`movement aptos move test --named-addresses ${args}=default`, true);
+			}else{
+				vscode.window.activeTerminal.show();
+				const terminal = vscode.window.activeTerminal;
+				terminal.sendText(`movement aptos move test --named-addresses ${args}=default`, true);
+			}
+		
+		vscode.window.onDidChangeActiveTerminal(e => {
+
+			console.log(`Active terminal changed, name=${e ? e.name : 'undefined'}`);
+		});
+		active_terminal += 1;
+	})
+
+
 	context.subscriptions.push(disposable);
 	context.subscriptions.push(init);
+	context.subscriptions.push(aptosTest);
 }
 
 // This method is called when your extension is deactivated
