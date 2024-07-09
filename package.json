@@ -22,6 +22,10 @@
       {
         "command": "move-assistant.initialise",
         "title": "Move-assistant: initialise"
+      },
+      {
+        "command": "move-assistant.aptosTest",
+        "title": "Move-assistant: test"
       }
     ]
   },
