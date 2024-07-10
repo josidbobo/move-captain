@@ -1,23 +1,23 @@
 {
   "name": "move-assistant",
   "displayName": "move-assistant",
-  "description": "",
+  "publisher": "JoshuaOkoro",
+  "description": "An extension built for the Move ecosystem to aid developers from setting up their move project till publishing",
   "version": "0.0.1",
+  "icon" : "",
   "engines": {
     "vscode": "^1.91.0"
   },
   "categories": [
     "Other"
   ],
-  "activationEvents": [
-    "onCommand:inkly.initialise"
-  ],
+  "activationEvents": [],
   "main": "./extension.js",
   "contributes": {
     "commands": [
       {
         "command": "move-assistant.helloWorld",
-        "title": "Move-assistant: cli install"
+        "title": "Move-assistant: Cli install"
       },
       {
         "command": "move-assistant.initialise",
