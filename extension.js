@@ -19,22 +19,22 @@ function activate(context) {
 
 	let init = vscode.commands.registerCommand('move-assistant.initialise', async function () {
 		let args = "";
-			if(vscode.window.activeTerminal === undefined){
-
-				const first_prompt = await vscode.window.showInputBox({
-					prompt: 'Enter your project\'s name (Separate with underscore _ )',
-				});
-				args = first_prompt;
-
-				const i = vscode.window.createTerminal('inkly')
-					i.show(false);
-					i.sendText(`movement aptos move init --name ${args}`, true);
-			}else{
-				vscode.window.activeTerminal.show();
-				const terminal = vscode.window.activeTerminal;
-				terminal.sendText(`movement aptos move init --name ${args}`, true);
-			}
+		const first_prompt = await vscode.window.showInputBox({
+			prompt: 'Enter your project\'s name (Separate with underscore _ )',
+		});
+		args = first_prompt;
 		
+		if (vscode.window.activeTerminal === undefined) {
+
+			const i = vscode.window.createTerminal('inkly')
+			i.show(false);
+			i.sendText(`movement aptos move init --name ${args}`, true);
+		} else {
+			vscode.window.activeTerminal.show();
+			const terminal = vscode.window.activeTerminal;
+			terminal.sendText(`movement aptos move init --name ${args}`, true);
+		}
+
 		vscode.window.onDidChangeActiveTerminal(e => {
 
 			console.log(`Active terminal changed, name=${e ? e.name : 'undefined'}`);
@@ -47,15 +47,15 @@ function activate(context) {
 	// The commandId parameter must match the command field in package.json
 	let disposable = vscode.commands.registerCommand('move-assistant.helloWorld', function () {
 		// The code you place here will be executed every time your command is executed
-		if(vscode.window.activeTerminal === undefined){
+		if (vscode.window.activeTerminal === undefined) {
 
 			const i = vscode.window.createTerminal('inkly')
-				i.show(false); // bash <(curl -s http://mywebsite.example/myscript.txt)
-				i.sendText(`bash <(curl https://raw.githubusercontent.com/movemntdev/M1/main/scripts/install.sh)`, true);
-		}else{
+			i.show(false); // bash <(curl -s http://mywebsite.example/myscript.txt)
+			i.sendText(`bash <(curl https://raw.githubusercontent.com/movemntdev/M1/main/scripts/install.sh) --latest`, true);
+		} else {
 			vscode.window.activeTerminal.show();
 			const terminal = vscode.window.activeTerminal;
-			terminal.sendText(`bash <(curl https://raw.githubusercontent.com/movemntdev/M1/main/scripts/install.sh)`, true);
+			terminal.sendText(`bash <(curl https://raw.githubusercontent.com/movemntdev/M1/main/scripts/install.sh) --latest`, true);
 		}
 		// Display a message box to the user
 		vscode.window.showInformationMessage('Hello World from move-assistant!');
@@ -63,22 +63,22 @@ function activate(context) {
 
 	let aptosTest = vscode.commands.registerCommand('move-assistant.test', async function () {
 		let args = "";
-			if(vscode.window.activeTerminal === undefined){
+		if (vscode.window.activeTerminal === undefined) {
 
-				const first_prompt = await vscode.window.showInputBox({
-					prompt: 'Enter your project\'s name (Separate with underscore _)',
-				});
-				args = first_prompt;
+			const first_prompt = await vscode.window.showInputBox({
+				prompt: 'Enter your project\'s name (Separate with underscore _)',
+			});
+			args = first_prompt;
 
-				const i = vscode.window.createTerminal('inkly')
-					i.show(false);
-					i.sendText(`movement aptos move test --named-addresses ${args}=default`, true);
-			}else{
-				vscode.window.activeTerminal.show();
-				const terminal = vscode.window.activeTerminal;
-				terminal.sendText(`movement aptos move test --named-addresses ${args}=default`, true);
-			}
-		
+			const i = vscode.window.createTerminal('inkly')
+			i.show(false);
+			i.sendText(`movement aptos move test --named-addresses ${args}=default`, true);
+		} else {
+			vscode.window.activeTerminal.show();
+			const terminal = vscode.window.activeTerminal;
+			terminal.sendText(`movement aptos move test --named-addresses ${args}=default`, true);
+		}
+
 		vscode.window.onDidChangeActiveTerminal(e => {
 
 			console.log(`Active terminal changed, name=${e ? e.name : 'undefined'}`);
@@ -93,7 +93,7 @@ function activate(context) {
 }
 
 // This method is called when your extension is deactivated
-function deactivate() {}
+function deactivate() { }
 
 module.exports = {
 	activate,
